@@ -1,0 +1,5 @@
+I had problems importing my objects with my first project as I was not aware that procedural textures did not work well in unity. My objects had too many vectors and were not built well to be handled in UE5.
+
+I then decided to recreate my scene and iteratively import the objects into UE5 to make sure that they were correctly loaded. I altered the portal material within UE5 by giving it an emission effect. Otherwise, with my newly made scene, all of the objects imported as I wanted. Using solid colours made it much easier, although I did include a few textures in the final version.
+
+The animation was created using a CineCameraActor. I position the camera at the start of the path and added keyframes for each position towards the knight where the animation ended. I created a blueprint to add a camera shake which gives the effect of someone walking instead of just a moving camera. I tried to also move the camera to make it seem like the person is actually walking up the stairs into the building.

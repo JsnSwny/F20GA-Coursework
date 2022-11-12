@@ -1,0 +1,1 @@
+The idea of my project is a TV show that involves an element of portal transport. However, the main scene is set in a greek like column display. I wanted to give the scene a feel of old ruins, yet an element of mystery and moderness with inclusion of portals. I created a knight which may represent an important character in the show.
