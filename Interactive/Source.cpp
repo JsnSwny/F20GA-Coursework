@@ -457,20 +457,20 @@ void render()
 	// --------------
 	// ROTATING LIGHT
 	// --------------
-	glm::mat4 columnsMatrix = glm::mat4(1.0);
+	glm::mat4 lightCubeMatrix = glm::mat4(1.0);
 	
-	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+	lightCubeMatrix = glm::rotate(lightCubeMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	lightCubeMatrix = glm::rotate(lightCubeMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	lightCubeMatrix = glm::translate(lightCubeMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 
-	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.z += 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
+	lightCubeMatrix = glm::rotate(lightCubeMatrix, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	lightCubeMatrix = glm::rotate(lightCubeMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	lightCubeMatrix = glm::rotate(lightCubeMatrix, lightRotation.z += 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
 
-	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 40.0f, 0.0f));
-	columnsMatrix = glm::scale(columnsMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
+	lightCubeMatrix = glm::translate(lightCubeMatrix, glm::vec3(0.0f, 40.0f, 0.0f));
+	lightCubeMatrix = glm::scale(lightCubeMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
 
-	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &columnsMatrix[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &lightCubeMatrix[0][0]);
 
 	light_source.DrawModel(light_source.vaoAndEbos, light_source.model);
 	
