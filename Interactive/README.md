@@ -55,3 +55,10 @@ Portals can be toggled using the 'P' key as shown at 2:05 in 'interactive-video.
 ### Camera
 
 The camera rotation can be adjusted using the arrow keys. And the x and z positions of the camera can be adjusted using the W, A, S and D keys.
+
+## Video Links
+
+In case there are issues with the .mp4 files, I have uploaded the interactive videos to YouTube, the links are below.
+
+https://youtu.be/wQKKGMzB2Iw
+https://youtu.be/VsZB7IDoXPI
