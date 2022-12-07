@@ -12,6 +12,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include<windows.h>
 using namespace std;
 
 #define GL_SILENCE_DEPRECATION
@@ -77,11 +78,13 @@ auto windowWidth = 800;								// Window width
 auto windowHeight =800;								// Window height
 auto running(true);							  		// Are we still running our main loop
 mat4 projMatrix;							 		// Our Projection Matrix
-vec3 cameraPosition = vec3(-11.0f, 100.0f, 310.0f);		// Where is our camera
+vec3 cameraPosition = vec3(0.0f, 2.0f, 0.0f);		// Where is our camera
 vec3 cameraFront = vec3(0.0f, 0.0f, -1.0f);			// Camera front vector
 vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);				// Camera up vector
 
-
+int jump = 0;
+int windToggle = 0;
+int portalsToggle = 0;
 
 GLfloat ka = 1.0;
 glm::vec3 ia = glm::vec3(0.3f, 0.3f, 0.3f); // Ambient lighting
@@ -113,6 +116,10 @@ Content columns;
 Content portals;
 Content inside_path;
 Content light_source;
+Content knight_body;
+Content knight_helm_boots;
+Content knight_sword;
+Content shield;
 
 
 Debugger debugger;									// Add one debugger to use for callbacks ( Win64 - openGLDebugCallback() ) or manual calls ( Apple - glCheckError() ) 
@@ -121,6 +128,8 @@ vec3 modelPosition;									// Model position
 vec3 modelRotation;									// Model rotation
 
 vec3 lightRotation;
+vec3 knightRotation;
+vec3 knightPosition;
 
 
 
@@ -290,6 +299,14 @@ void startup()
 
 	inside_path.LoadGLTF("assets/inside-path.gltf");
 
+
+
+	knight_body.LoadGLTF("assets/knight-body.gltf");
+	knight_helm_boots.LoadGLTF("assets/knight-helm-boots.gltf");
+	knight_sword.LoadGLTF("assets/knight-sword.gltf");
+	shield.LoadGLTF("assets/shield.gltf");
+
+
 	pipeline.CreatePipeline();
 	pipeline.LoadShaders("shaders/vs_model.glsl", "shaders/fs_model.glsl");
 
@@ -298,6 +315,8 @@ void startup()
 	modelRotation = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	lightRotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	knightRotation = glm::vec3(0.0f, 180.0f, 0.0f);
+	knightPosition = glm::vec3(-25.0f, 1.35f, 0.0f);
 
 
 	light_source.LoadGLTF("assets/light-source.gltf");
@@ -386,50 +405,76 @@ void render()
 
 	
 
-	// columns.DrawModel(columns.vaoAndEbos, columns.model);
+	columns.DrawModel(columns.vaoAndEbos, columns.model);
 
-	// rocks_light.DrawModel(rocks_light.vaoAndEbos, rocks_light.model);
-	// rocks_medium.DrawModel(rocks_medium.vaoAndEbos, rocks_medium.model);
-	// rocks_dark.DrawModel(rocks_dark.vaoAndEbos, rocks_dark.model);
-	// leaves.DrawModel(leaves.vaoAndEbos, leaves.model);
+	rocks_light.DrawModel(rocks_light.vaoAndEbos, rocks_light.model);
+	rocks_medium.DrawModel(rocks_medium.vaoAndEbos, rocks_medium.model);
+	rocks_dark.DrawModel(rocks_dark.vaoAndEbos, rocks_dark.model);
+	leaves.DrawModel(leaves.vaoAndEbos, leaves.model);
 	
 	
-	// floor_1.DrawModel(floor_1.vaoAndEbos, floor_1.model);
-	// floor_2.DrawModel(floor_2.vaoAndEbos, floor_2.model);
-	// floor_3.DrawModel(floor_3.vaoAndEbos, floor_3.model);
-	// floor_4.DrawModel(floor_4.vaoAndEbos, floor_4.model);
+	floor_1.DrawModel(floor_1.vaoAndEbos, floor_1.model);
+	floor_2.DrawModel(floor_2.vaoAndEbos, floor_2.model);
+	floor_3.DrawModel(floor_3.vaoAndEbos, floor_3.model);
+	floor_4.DrawModel(floor_4.vaoAndEbos, floor_4.model);
+	roof_1.DrawModel(roof_1.vaoAndEbos, roof_1.model);
+	roof_decor.DrawModel(roof_decor.vaoAndEbos, roof_decor.model);
+	roof_top.DrawModel(roof_top.vaoAndEbos, roof_top.model);
+	roots.DrawModel(roots.vaoAndEbos, roots.model);
+	
+	
+	inside_path.DrawModel(inside_path.vaoAndEbos, inside_path.model);
 
-	// portals.DrawModel(portals.vaoAndEbos, portals.model);
-	// inside_path.DrawModel(inside_path.vaoAndEbos, inside_path.model);
-	
-	
-	
-	// roof_1.DrawModel(roof_1.vaoAndEbos, roof_1.model);
-	// roof_decor.DrawModel(roof_decor.vaoAndEbos, roof_decor.model);
-	// roof_top.DrawModel(roof_top.vaoAndEbos, roof_top.model);
+	if(portalsToggle == 1) {
+		portals.DrawModel(portals.vaoAndEbos, portals.model);
+	}
 
-	// roots.DrawModel(roots.vaoAndEbos, roots.model);
+	// --------------
+	// NIGHT
+	// --------------
+
+	if(windToggle == 1) {
+		knightPosition.x -= 0.1;
+	}
+
+	glm::mat4 knightMatrix = glm::mat4(1.0);
 	
-	
-	glm::mat4 columnsMatrix = glm::mat4(1.0);
-	
-	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-
-	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.z += 0.1f, glm::vec3(0.0f, 0.0f, 1.0f));
-	// columnsMatrix = glm::rotate(columnsMatrix, radians(00.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-
-	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 40.0f, 0.0f));
-	columnsMatrix = glm::scale(columnsMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
-
-	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &columnsMatrix[0][0]);
-
-	light_source.DrawModel(light_source.vaoAndEbos, light_source.model);
+	knightMatrix = glm::rotate(knightMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	knightMatrix = glm::rotate(knightMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	knightMatrix = glm::translate(knightMatrix, knightPosition);
+	knightMatrix = glm::rotate(knightMatrix, knightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	knightMatrix = glm::rotate(knightMatrix, knightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	knightMatrix = glm::scale(knightMatrix, glm::vec3(0.2f, 0.2f, 0.2f));
 	
 
+	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &knightMatrix[0][0]);
+
+	knight_body.DrawModel(knight_body.vaoAndEbos, knight_body.model);
+	knight_helm_boots.DrawModel(knight_helm_boots.vaoAndEbos, knight_helm_boots.model);
+	knight_sword.DrawModel(knight_sword.vaoAndEbos, knight_sword.model);
+	shield.DrawModel(shield.vaoAndEbos, shield.model);
+	
+	// --------------
+	// ROTATING LIGHT
+	// --------------
+	// glm::mat4 columnsMatrix = glm::mat4(1.0);
+	
+	// columnsMatrix = glm::rotate(columnsMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	// columnsMatrix = glm::rotate(columnsMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	// columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+
+	// columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	// columnsMatrix = glm::rotate(columnsMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	// columnsMatrix = glm::rotate(columnsMatrix, lightRotation.z += 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	// columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 40.0f, 0.0f));
+	// columnsMatrix = glm::scale(columnsMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
+
+	// glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &columnsMatrix[0][0]);
+
+	// light_source.DrawModel(light_source.vaoAndEbos, light_source.model);
+	
+	
 	glm::mat4 lightM = glm::mat4(1.0f);
 
 	lightM = glm::rotate(lightM, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -438,13 +483,9 @@ void render()
 
 	lightM = glm::rotate(lightM, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 	lightM = glm::rotate(lightM, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	lightM = glm::rotate(lightM, lightRotation.z += 0.1f, glm::vec3(0.0f, 0.0f, 1.0f));
-	// columnsMatrix = glm::rotate(columnsMatrix, radians(00.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	lightM = glm::rotate(lightM, lightRotation.z += 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
 
 	lightM = glm::translate(lightM, glm::vec3(0.0f, 40.0f, 0.0f));
-	// lightM = glm::rotate(lightM, lightRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-	// lightM = glm::rotate(lightM, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	// lightM = glm::rotate(lightM, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 
 	glm::vec4 rotatedLightPos = lightM * lightPos;
 
@@ -510,22 +551,67 @@ void onResizeCallback(GLFWwindow *window, int w, int h)
 
 void onKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
+	if(action == 1) {
+		if (key == 77) {
+			cout << "Toggling Wind!" << endl;
+			if(windToggle == 1) {
+				windToggle = 0;
+			} else {
+				windToggle = 1;
+			}
+		} else if (key == 80) { // KEY P
+			cout << "Toggling Portals!" << endl;
+			if(portalsToggle == 1) {
+				portalsToggle = 0;
+			} else {
+				portalsToggle = 1;
+			}
+		}
+	}
 	if (action == GLFW_PRESS)
 		keyStatus[key] = true;
 		if(key == 68) {
-			cameraPosition.x += 1;
+			cameraPosition.x += 0.5;
 		}
 		else if(key == 87) {
-			cameraPosition.z -= 1;
+			cameraPosition.z -= 0.5;
 		}
 		else if (key == 65) {
-			cameraPosition.x -= 1;
+			cameraPosition.x -= 0.5;
 		} 
 		else if (key == 83) {
-			cameraPosition.z += 1;
+			cameraPosition.z += 0.5;
+		}
+		else if (key == 83) {
+			cameraPosition.z += 0.5;
+		}
+		else if (key == 89) {
+			cameraPosition.y += 0.5;
+		}
+		else if (key == 72) {
+			cameraPosition.y -= 0.5;
+		}
+
+		else if (key == 73) { // KEY I
+			knightPosition.x += 0.2;
+		}
+		else if (key == 74) { // KEY J
+			knightPosition.z -= 0.2;
+		}
+		else if (key == 75) { // KEY K
+			knightPosition.x -= 0.2;
+		}
+		else if (key == 76) { // KEY L
+			knightPosition.z += 0.2;
+		}
+		
+		else if (key == 32) {
+			jump += 1;
+			knightPosition.y += 0.5;
 		}
 	else if (action == GLFW_RELEASE)
 		keyStatus[key] = false;
+		
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
@@ -540,6 +626,8 @@ void onMouseMoveCallback(GLFWwindow *window, double x, double y)
 	int mouseX = static_cast<int>(x);
 	int mouseY = static_cast<int>(y);
 	cameraUp.y += mouseY;
+	// cameraFront.z += mouseX;
+	// cout << "Mouse move: " << mouseX << ", " << mouseY << endl;
 }
 
 void onMouseWheelCallback(GLFWwindow *window, double xoffset, double yoffset)
