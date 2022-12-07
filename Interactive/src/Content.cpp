@@ -156,35 +156,37 @@ void Content::DrawMesh(const map<int, GLuint> &vbos, Model &model, Mesh &mesh)
 	for (size_t i = 0; i < mesh.primitives.size(); ++i)
 	{
 
-		Texture &tex = model.textures[i];
-		if (tex.source > -1)
-		{
+		if(model.textures.size() > 0) {
+			Texture &tex = model.textures[i];
+			if (tex.source > -1)
+			{
 
-			GLuint texid;
-			glGenTextures(1, &texid);
+				GLuint texid;
+				glGenTextures(1, &texid);
 
-			tinygltf::Image &image = model.images[tex.source];
+				tinygltf::Image &image = model.images[tex.source];
 
-			glBindTexture(GL_TEXTURE_2D, texid);
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glBindTexture(GL_TEXTURE_2D, texid);
+				glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+				glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-			GLenum format = GL_RGBA;
+				GLenum format = GL_RGBA;
 
-			GLenum type = GL_UNSIGNED_BYTE;
+				GLenum type = GL_UNSIGNED_BYTE;
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0,
-							format, GL_UNSIGNED_BYTE, &image.image.at(0));
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0,
+								format, GL_UNSIGNED_BYTE, &image.image.at(0));
+			}
+
+			Primitive primitive = mesh.primitives[i];
+			Accessor indexAccessor = model.accessors[primitive.indices];
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbos.at(indexAccessor.bufferView));
+
+			glDrawElements(primitive.mode, indexAccessor.count,
+				indexAccessor.componentType,
+				((char*)NULL + indexAccessor.byteOffset));
 		}
-
-		Primitive primitive = mesh.primitives[i];
-		Accessor indexAccessor = model.accessors[primitive.indices];
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbos.at(indexAccessor.bufferView));
-
-		glDrawElements(primitive.mode, indexAccessor.count,
-            indexAccessor.componentType,
-            ((char*)NULL + indexAccessor.byteOffset));
 	}
 }
 

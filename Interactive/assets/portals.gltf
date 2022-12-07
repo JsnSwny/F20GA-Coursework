@@ -21,7 +21,7 @@
                 "ant_landscape" : {}
             },
             "mesh" : 0,
-            "name" : "Plane.005"
+            "name" : "Plane.008"
         }
     ],
     "materials" : [
@@ -39,7 +39,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Plane.011",
+            "name" : "Plane.008",
             "primitives" : [
                 {
                     "attributes" : {
@@ -62,8 +62,8 @@
     "images" : [
         {
             "mimeType" : "image/png",
-            "name" : "blue portal",
-            "uri" : "tex/blue%20portal.png"
+            "name" : "Pink_Portal_Color",
+            "uri" : "tex/Pink_Portal_Color.png"
         }
     ],
     "accessors" : [
@@ -72,14 +72,14 @@
             "componentType" : 5126,
             "count" : 224,
             "max" : [
-                0.7298870086669922,
-                0.487679123878479,
-                0.8925127983093262
+                13.597718238830566,
+                15.839336395263672,
+                19.116893768310547
             ],
             "min" : [
-                -0.7578973770141602,
-                0.11962664127349854,
-                -0.5941709280014038
+                -34.453853607177734,
+                3.952195405960083,
+                -28.899089813232422
             ],
             "type" : "VEC3"
         },

@@ -70,29 +70,29 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 146,
+            "count" : 154,
             "max" : [
-                0.8726763725280762,
-                0.6990100145339966,
-                1.0364255905151367
+                18.209453582763672,
+                22.66476058959961,
+                23.764921188354492
             ],
             "min" : [
-                -0.9019393920898438,
-                0.5201255083084106,
-                -0.7381897568702698
+                -39.10599899291992,
+                16.887264251708984,
+                -33.55051803588867
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 146,
+            "count" : 154,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 146,
+            "count" : 154,
             "type" : "VEC2"
         },
         {
@@ -105,26 +105,26 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 1752,
+            "byteLength" : 1848,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1752,
-            "byteOffset" : 1752,
+            "byteLength" : 1848,
+            "byteOffset" : 1848,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1168,
-            "byteOffset" : 3504,
+            "byteLength" : 1232,
+            "byteOffset" : 3696,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 696,
-            "byteOffset" : 4672,
+            "byteOffset" : 4928,
             "target" : 34963
         }
     ],
@@ -136,7 +136,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 5368,
+            "byteLength" : 5624,
             "uri" : "roof-1.bin"
         }
     ]

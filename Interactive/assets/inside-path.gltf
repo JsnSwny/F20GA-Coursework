@@ -70,29 +70,29 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 550,
+            "count" : 554,
             "max" : [
-                0.3600587844848633,
-                0.1349097490310669,
-                0.5235580205917358
+                1.653207540512085,
+                4.445827960968018,
+                7.202573299407959
             ],
             "min" : [
-                -0.7320146560668945,
-                0.12008440494537354,
-                -0.22524692118167877
+                -33.617897033691406,
+                3.966986894607544,
+                -16.988178253173828
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 550,
+            "count" : 554,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 550,
+            "count" : 554,
             "type" : "VEC2"
         },
         {
@@ -105,26 +105,26 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 6600,
+            "byteLength" : 6648,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 6600,
-            "byteOffset" : 6600,
+            "byteLength" : 6648,
+            "byteOffset" : 6648,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 4400,
-            "byteOffset" : 13200,
+            "byteLength" : 4432,
+            "byteOffset" : 13296,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 1752,
-            "byteOffset" : 17600,
+            "byteOffset" : 17728,
             "target" : 34963
         }
     ],
@@ -136,7 +136,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 19352,
+            "byteLength" : 19480,
             "uri" : "inside-path.bin"
         }
     ]

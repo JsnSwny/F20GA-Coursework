@@ -77,11 +77,11 @@ auto windowWidth = 800;								// Window width
 auto windowHeight =800;								// Window height
 auto running(true);							  		// Are we still running our main loop
 mat4 projMatrix;							 		// Our Projection Matrix
-vec3 cameraPosition = vec3(0.0f, 0.0f, 5.0f);		// Where is our camera
+vec3 cameraPosition = vec3(-11.0f, 100.0f, 310.0f);		// Where is our camera
 vec3 cameraFront = vec3(0.0f, 0.0f, -1.0f);			// Camera front vector
 vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);				// Camera up vector
 
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPos(0.0f, 100.0f, 300.0f);
 
 GLfloat ka = 1.0;
 glm::vec3 ia = glm::vec3(0.2f, 0.24f, 0.2f); // Ambient lighting
@@ -112,12 +112,15 @@ Content roof_top;
 Content columns;
 Content portals;
 Content inside_path;
+Content light_source;
 
 
 Debugger debugger;									// Add one debugger to use for callbacks ( Win64 - openGLDebugCallback() ) or manual calls ( Apple - glCheckError() ) 
 
 vec3 modelPosition;									// Model position
 vec3 modelRotation;									// Model rotation
+
+vec3 lightRotation;
 
 
 
@@ -273,6 +276,8 @@ void startup()
 	floor_3.LoadGLTF("assets/floor-3.gltf");
 	floor_4.LoadGLTF("assets/floor-4.gltf");
 
+	
+
 	terrain.LoadGLTF("assets/terrain.gltf");
 
 	roof_1.LoadGLTF("assets/roof-1.gltf");
@@ -291,6 +296,11 @@ void startup()
 	// Start from the centre
 	modelPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	modelRotation = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	lightRotation = glm::vec3(0.0f, 0.0f, 0.0f);
+
+
+	light_source.LoadGLTF("assets/light-source.gltf");
 
 	// A few optimizations.
 	glFrontFace(GL_CCW);
@@ -314,8 +324,6 @@ void update()
 	if (keyStatus[GLFW_KEY_RIGHT]) modelRotation.y -= 0.05f;
 	if (keyStatus[GLFW_KEY_UP]) modelRotation.x += 0.05f;
 	if (keyStatus[GLFW_KEY_DOWN]) modelRotation.x -= 0.05f;
-	if (keyStatus[GLFW_KEY_W]) modelPosition.z += 0.10f;
-	if (keyStatus[GLFW_KEY_S]) modelPosition.z -= 0.10f;
 
 	if (keyStatus[GLFW_KEY_R]) pipeline.ReloadShaders();
 
@@ -328,7 +336,6 @@ void update()
 void render()
 {
 	glViewport(0, 0, windowWidth, windowHeight);
-
 	
 	// glUniform4f(glGetUniformLocation(pipeline.pipe.program, "lightPosition"), lightPos.x, lightPos.y, lightPos.z, 1.0);
 	
@@ -354,16 +361,10 @@ void render()
 									   cameraPosition + cameraFront, // centre
 									   cameraUp);					 // up
 
-	// Do some translations, rotations and scaling
-	// glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(modelPosition.x+rX, modelPosition.y+rY, modelPosition.z+rZ));
-	glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
-
-	glm::mat4 mv_matrix = viewMatrix * modelMatrix;
-
-	// glUniform4f(glGetUniformLocation(objectModel.program, "lightPosition"), lightDisp.x, lightDisp.y, lightDisp.z, 1.0);
 
 	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "viewPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z, 1.0);
 	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "lightPosition"), lightPos.x, lightPos.y, lightPos.z, 1.0);
@@ -375,29 +376,58 @@ void render()
 	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "is"), is.r, is.g, is.b, 1.0);
 	glUniform1f(glGetUniformLocation(pipeline.pipe.program, "ks"), 1.0f);
 	glUniform1f(glGetUniformLocation(pipeline.pipe.program, "shininess"), 32.0f);
-
 	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &modelMatrix[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "view_matrix"), 1, GL_FALSE, &viewMatrix[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "proj_matrix"), 1, GL_FALSE, &projMatrix[0][0]);
 
-	// roots.DrawModel(roots.vaoAndEbos, roots.model);
-
-	rocks_light.DrawModel(rocks_light.vaoAndEbos, rocks_light.model);
-	rocks_medium.DrawModel(rocks_medium.vaoAndEbos, rocks_medium.model);
-	rocks_dark.DrawModel(rocks_dark.vaoAndEbos, rocks_dark.model);
-	leaves.DrawModel(leaves.vaoAndEbos, leaves.model);
-	roots.DrawModel(roots.vaoAndEbos, roots.model);
-	floor_1.DrawModel(floor_1.vaoAndEbos, floor_1.model);
-	floor_2.DrawModel(floor_2.vaoAndEbos, floor_2.model);
-	floor_3.DrawModel(floor_3.vaoAndEbos, floor_3.model);
-	floor_4.DrawModel(floor_4.vaoAndEbos, floor_4.model);
 	terrain.DrawModel(terrain.vaoAndEbos, terrain.model);
-	roof_1.DrawModel(roof_1.vaoAndEbos, roof_1.model);
-	roof_decor.DrawModel(roof_decor.vaoAndEbos, roof_decor.model);
-	roof_top.DrawModel(roof_top.vaoAndEbos, roof_top.model);
-	columns.DrawModel(columns.vaoAndEbos, columns.model);
-	portals.DrawModel(portals.vaoAndEbos, portals.model);
-	inside_path.DrawModel(inside_path.vaoAndEbos, inside_path.model);
+
+
+	
+
+	// columns.DrawModel(columns.vaoAndEbos, columns.model);
+
+	// rocks_light.DrawModel(rocks_light.vaoAndEbos, rocks_light.model);
+	// rocks_medium.DrawModel(rocks_medium.vaoAndEbos, rocks_medium.model);
+	// rocks_dark.DrawModel(rocks_dark.vaoAndEbos, rocks_dark.model);
+	// leaves.DrawModel(leaves.vaoAndEbos, leaves.model);
+	
+	
+	// floor_1.DrawModel(floor_1.vaoAndEbos, floor_1.model);
+	// floor_2.DrawModel(floor_2.vaoAndEbos, floor_2.model);
+	// floor_3.DrawModel(floor_3.vaoAndEbos, floor_3.model);
+	// floor_4.DrawModel(floor_4.vaoAndEbos, floor_4.model);
+
+	// portals.DrawModel(portals.vaoAndEbos, portals.model);
+	// inside_path.DrawModel(inside_path.vaoAndEbos, inside_path.model);
+	
+	
+	
+	// roof_1.DrawModel(roof_1.vaoAndEbos, roof_1.model);
+	// roof_decor.DrawModel(roof_decor.vaoAndEbos, roof_decor.model);
+	// roof_top.DrawModel(roof_top.vaoAndEbos, roof_top.model);
+
+	// roots.DrawModel(roots.vaoAndEbos, roots.model);
+	
+	glm::mat4 columnsMatrix = glm::mat4(1.0);
+	
+	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+
+	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x += 0.1f, glm::vec3(1.0f, 0.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	// columnsMatrix = glm::rotate(columnsMatrix, radians(00.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 200.0f, 0.0f));
+	columnsMatrix = glm::scale(columnsMatrix, glm::vec3(7.0f, 7.0f, 7.0f));
+
+	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &columnsMatrix[0][0]);
+
+	light_source.DrawModel(light_source.vaoAndEbos, light_source.model);
+
+	lightPos.x -= 1;
+	lightPos.z -= 1;
 	
 	#if defined(__APPLE__)
 		glCheckError();
@@ -459,6 +489,18 @@ void onKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mo
 {
 	if (action == GLFW_PRESS)
 		keyStatus[key] = true;
+		if(key == 68) {
+			cameraPosition.x += 1;
+		}
+		else if(key == 87) {
+			cameraPosition.z -= 1;
+		}
+		else if (key == 65) {
+			cameraPosition.x -= 1;
+		} 
+		else if (key == 83) {
+			cameraPosition.z += 1;
+		}
 	else if (action == GLFW_RELEASE)
 		keyStatus[key] = false;
 
@@ -474,6 +516,7 @@ void onMouseMoveCallback(GLFWwindow *window, double x, double y)
 {
 	int mouseX = static_cast<int>(x);
 	int mouseY = static_cast<int>(y);
+	cameraUp.y += mouseY;
 }
 
 void onMouseWheelCallback(GLFWwindow *window, double xoffset, double yoffset)

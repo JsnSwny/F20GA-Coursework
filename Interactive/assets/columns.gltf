@@ -21,7 +21,7 @@
                 "ant_landscape" : {}
             },
             "mesh" : 0,
-            "name" : "Column Backup.001"
+            "name" : "Column Backup.003"
         }
     ],
     "materials" : [
@@ -39,7 +39,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Circle.030",
+            "name" : "Circle.031",
             "primitives" : [
                 {
                     "attributes" : {
@@ -70,29 +70,29 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 56976,
+            "count" : 57416,
             "max" : [
-                0.7560625076293945,
-                0.5218521356582642,
-                0.9198112487792969
+                14.44310474395752,
+                16.943037033081055,
+                19.998584747314453
             ],
             "min" : [
-                -0.7853250503540039,
-                0.11895906925201416,
-                -0.6215753555297852
+                -35.33964920043945,
+                3.930669069290161,
+                -29.784189224243164
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 56976,
+            "count" : 57416,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 56976,
+            "count" : 57416,
             "type" : "VEC2"
         },
         {
@@ -105,26 +105,26 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 683712,
+            "byteLength" : 688992,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 683712,
-            "byteOffset" : 683712,
+            "byteLength" : 688992,
+            "byteOffset" : 688992,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 455808,
-            "byteOffset" : 1367424,
+            "byteLength" : 459328,
+            "byteOffset" : 1377984,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 181344,
-            "byteOffset" : 1823232,
+            "byteOffset" : 1837312,
             "target" : 34963
         }
     ],
@@ -136,7 +136,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 2004576,
+            "byteLength" : 2018656,
             "uri" : "columns.bin"
         }
     ]

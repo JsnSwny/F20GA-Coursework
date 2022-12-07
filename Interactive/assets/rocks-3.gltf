@@ -21,13 +21,13 @@
                 "ant_landscape" : {}
             },
             "mesh" : 0,
-            "name" : "Rocks.009"
+            "name" : "Rocks.007"
         }
     ],
     "materials" : [
         {
             "doubleSided" : true,
-            "name" : "Material.018",
+            "name" : "Material.015",
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
                     "index" : 0
@@ -39,7 +39,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Sphere.004",
+            "name" : "Sphere.013",
             "primitives" : [
                 {
                     "attributes" : {
@@ -70,61 +70,61 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 11904,
+            "count" : 9816,
             "max" : [
-                -1.1520090103149414,
-                0.23559296131134033,
-                0.5923420786857605
+                -47.1826171875,
+                7.6976165771484375,
+                9.422170639038086
             ],
             "min" : [
-                -1.6810894012451172,
-                -0.08586204051971436,
-                -0.2662658989429474
+                -64.2704849243164,
+                -2.040663242340088,
+                -18.308609008789062
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 11904,
+            "count" : 9816,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 11904,
+            "count" : 9816,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5123,
-            "count" : 17280,
+            "count" : 14244,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 142848,
+            "byteLength" : 117792,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 142848,
-            "byteOffset" : 142848,
+            "byteLength" : 117792,
+            "byteOffset" : 117792,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 95232,
-            "byteOffset" : 285696,
+            "byteLength" : 78528,
+            "byteOffset" : 235584,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 34560,
-            "byteOffset" : 380928,
+            "byteLength" : 28488,
+            "byteOffset" : 314112,
             "target" : 34963
         }
     ],
@@ -136,7 +136,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 415488,
+            "byteLength" : 342600,
             "uri" : "rocks-3.bin"
         }
     ]

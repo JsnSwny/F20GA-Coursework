@@ -21,7 +21,12 @@
                 "ant_landscape" : {}
             },
             "mesh" : 0,
-            "name" : "Plane.028"
+            "name" : "Plane.028",
+            "translation" : [
+                0,
+                0.1477901041507721,
+                0
+            ]
         }
     ],
     "materials" : [
@@ -70,29 +75,29 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 112,
+            "count" : 104,
             "max" : [
-                1.0403757095336914,
-                0.029339909553527832,
-                1.2041252851486206
+                23.62569236755371,
+                1.0361964702606201,
+                29.18117332458496
             ],
             "min" : [
-                -3.950502395629883,
-                -0.007167696952819824,
-                -0.9058889150619507
+                -137.5666046142578,
+                -0.14293424785137177,
+                -38.966758728027344
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 112,
+            "count" : 104,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 112,
+            "count" : 104,
             "type" : "VEC2"
         },
         {
@@ -105,26 +110,26 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 1344,
+            "byteLength" : 1248,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1344,
-            "byteOffset" : 1344,
+            "byteLength" : 1248,
+            "byteOffset" : 1248,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 896,
-            "byteOffset" : 2688,
+            "byteLength" : 832,
+            "byteOffset" : 2496,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 360,
-            "byteOffset" : 3584,
+            "byteOffset" : 3328,
             "target" : 34963
         }
     ],
@@ -136,7 +141,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 3944,
+            "byteLength" : 3688,
             "uri" : "floor.bin"
         }
     ]

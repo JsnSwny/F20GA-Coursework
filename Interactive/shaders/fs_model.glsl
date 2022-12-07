@@ -25,6 +25,9 @@ uniform float shininess;// shininess constant
 
 void main(void){
 
+
+  
+
   // Diffuse
     vec4 lightDir = normalize(lightPosition - fs_in.vertex);
     float diff = max(dot(normalize(fs_in.normals), lightDir), 0.0);

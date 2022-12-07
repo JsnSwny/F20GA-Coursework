@@ -70,29 +70,29 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 54926,
+            "count" : 54774,
             "max" : [
-                3.7530622482299805,
-                1.8229833841323853,
-                3.9067792892456055
+                111.23831176757812,
+                58.96613311767578,
+                116.46984100341797
             ],
             "min" : [
-                -3.7805280685424805,
-                -0.008139967918395996,
-                -3.931597948074341
+                -132.07693481445312,
+                -0.17436310648918152,
+                -136.68923950195312
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 54926,
+            "count" : 54774,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 54926,
+            "count" : 54774,
             "type" : "VEC2"
         },
         {
@@ -105,26 +105,26 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 659112,
+            "byteLength" : 657288,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 659112,
-            "byteOffset" : 659112,
+            "byteLength" : 657288,
+            "byteOffset" : 657288,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 439408,
-            "byteOffset" : 1318224,
+            "byteLength" : 438192,
+            "byteOffset" : 1314576,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 196608,
-            "byteOffset" : 1757632,
+            "byteOffset" : 1752768,
             "target" : 34963
         }
     ],
@@ -136,7 +136,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 1954240,
+            "byteLength" : 1949376,
             "uri" : "terrain.bin"
         }
     ]

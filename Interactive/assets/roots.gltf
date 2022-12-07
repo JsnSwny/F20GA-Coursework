@@ -21,7 +21,7 @@
                 "ant_landscape" : {}
             },
             "mesh" : 0,
-            "name" : "Sphere.001"
+            "name" : "Sphere.008"
         }
     ],
     "materials" : [
@@ -39,7 +39,7 @@
     ],
     "meshes" : [
         {
-            "name" : "Sphere.049",
+            "name" : "Sphere.027",
             "primitives" : [
                 {
                     "attributes" : {
@@ -70,61 +70,61 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 144830,
+            "count" : 123822,
             "max" : [
-                1.7883872985839844,
-                0.7054382562637329,
-                2.1389856338500977
+                47.781211853027344,
+                22.872365951538086,
+                59.3736686706543
             ],
             "min" : [
-                -1.7855844497680664,
-                -0.2732166051864624,
-                -1.5753202438354492
+                -67.64209747314453,
+                -8.735631942749023,
+                -60.58628463745117
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 144830,
+            "count" : 123822,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 144830,
+            "count" : 123822,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5125,
-            "count" : 868776,
+            "count" : 742740,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 1737960,
+            "byteLength" : 1485864,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1737960,
-            "byteOffset" : 1737960,
+            "byteLength" : 1485864,
+            "byteOffset" : 1485864,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1158640,
-            "byteOffset" : 3475920,
+            "byteLength" : 990576,
+            "byteOffset" : 2971728,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 3475104,
-            "byteOffset" : 4634560,
+            "byteLength" : 2970960,
+            "byteOffset" : 3962304,
             "target" : 34963
         }
     ],
@@ -136,7 +136,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 8109664,
+            "byteLength" : 6933264,
             "uri" : "roots.bin"
         }
     ]
