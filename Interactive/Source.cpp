@@ -430,7 +430,7 @@ void render()
 	}
 
 	// --------------
-	// NIGHT
+	// KNIGHT
 	// --------------
 
 	if(windToggle == 1) {
@@ -457,22 +457,22 @@ void render()
 	// --------------
 	// ROTATING LIGHT
 	// --------------
-	// glm::mat4 columnsMatrix = glm::mat4(1.0);
+	glm::mat4 columnsMatrix = glm::mat4(1.0);
 	
-	// columnsMatrix = glm::rotate(columnsMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	// columnsMatrix = glm::rotate(columnsMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	// columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 
-	// columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	// columnsMatrix = glm::rotate(columnsMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	// columnsMatrix = glm::rotate(columnsMatrix, lightRotation.z += 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.z += 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
 
-	// columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 40.0f, 0.0f));
-	// columnsMatrix = glm::scale(columnsMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
+	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 40.0f, 0.0f));
+	columnsMatrix = glm::scale(columnsMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
 
-	// glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &columnsMatrix[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &columnsMatrix[0][0]);
 
-	// light_source.DrawModel(light_source.vaoAndEbos, light_source.model);
+	light_source.DrawModel(light_source.vaoAndEbos, light_source.model);
 	
 	
 	glm::mat4 lightM = glm::mat4(1.0f);
@@ -552,14 +552,16 @@ void onResizeCallback(GLFWwindow *window, int w, int h)
 void onKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
 	if(action == 1) {
-		if (key == 77) {
+		// TOGGLE WIND
+		if (key == 77) { // KEY 'M'
 			cout << "Toggling Wind!" << endl;
 			if(windToggle == 1) {
 				windToggle = 0;
 			} else {
 				windToggle = 1;
 			}
-		} else if (key == 80) { // KEY P
+		// TOGGLE PORTALS
+		} else if (key == 80) { // KEY 'P'
 			cout << "Toggling Portals!" << endl;
 			if(portalsToggle == 1) {
 				portalsToggle = 0;
@@ -570,6 +572,7 @@ void onKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mo
 	}
 	if (action == GLFW_PRESS)
 		keyStatus[key] = true;
+		// CAMERA MOVEMENT
 		if(key == 68) {
 			cameraPosition.x += 0.5;
 		}
@@ -582,9 +585,6 @@ void onKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mo
 		else if (key == 83) {
 			cameraPosition.z += 0.5;
 		}
-		else if (key == 83) {
-			cameraPosition.z += 0.5;
-		}
 		else if (key == 89) {
 			cameraPosition.y += 0.5;
 		}
@@ -592,6 +592,7 @@ void onKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mo
 			cameraPosition.y -= 0.5;
 		}
 
+		// KNIGHT MOVEMENT
 		else if (key == 73) { // KEY I
 			knightPosition.x += 0.2;
 		}
