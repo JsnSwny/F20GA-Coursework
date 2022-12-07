@@ -29,6 +29,7 @@ void main(void){
   
 
   // Diffuse
+    // vec4 lightPosition = dot(lightPosition, model_matrix)
     vec4 lightDir = normalize(lightPosition - fs_in.vertex);
     float diff = max(dot(normalize(fs_in.normals), lightDir), 0.0);
     vec4 diffuse = diff * id;
@@ -36,7 +37,7 @@ void main(void){
     // Specular
     vec4 viewDir = normalize(viewPosition - fs_in.vertex);
     vec4 reflectDir = reflect(-lightDir, normalize(fs_in.normals));
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 64);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 128);
 
     // Light
     // color = vec4(ka) * texture(tex, fs_in.tc);

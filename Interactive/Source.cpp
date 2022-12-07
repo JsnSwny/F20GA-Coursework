@@ -81,12 +81,12 @@ vec3 cameraPosition = vec3(-11.0f, 100.0f, 310.0f);		// Where is our camera
 vec3 cameraFront = vec3(0.0f, 0.0f, -1.0f);			// Camera front vector
 vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);				// Camera up vector
 
-glm::vec3 lightPos(0.0f, 100.0f, 300.0f);
+
 
 GLfloat ka = 1.0;
-glm::vec3 ia = glm::vec3(0.2f, 0.24f, 0.2f); // Ambient lighting
-glm::vec3 id = glm::vec3(0.7f, 0.7f, 0.7f); // Diffuse Lighting
-glm::vec3 is = glm::vec3(0.5f, 0.5f, 0.5f); // Specular Lighting
+glm::vec3 ia = glm::vec3(0.3f, 0.3f, 0.3f); // Ambient lighting
+glm::vec3 id = glm::vec3(0.9f, 0.9f, 0.9f); // Diffuse Lighting
+glm::vec3 is = glm::vec3(0.9f, 0.9f, 0.9f); // Specular Lighting
 
 auto aspect = (float)windowWidth / (float)windowHeight;	// Window aspect ration
 auto fovy = 45.0f;									// Field of view (y axis)
@@ -333,6 +333,8 @@ void update()
 	ImGui::NewFrame();
 }
 
+vec4 lightPos = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
 void render()
 {
 	glViewport(0, 0, windowWidth, windowHeight);
@@ -364,10 +366,9 @@ void render()
 	glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 	modelMatrix = glm::rotate(modelMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.2f, 0.20f, 0.2f));
 
 	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "viewPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z, 1.0);
-	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "lightPosition"), lightPos.x, lightPos.y, lightPos.z, 1.0);
 
 	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "ia"), ia.r, ia.g, ia.b, 1.0);
 	glUniform1f(glGetUniformLocation(pipeline.pipe.program, "ka"), ka);
@@ -409,25 +410,47 @@ void render()
 
 	// roots.DrawModel(roots.vaoAndEbos, roots.model);
 	
+	
 	glm::mat4 columnsMatrix = glm::mat4(1.0);
 	
 	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 	columnsMatrix = glm::rotate(columnsMatrix, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 
-	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x += 0.1f, glm::vec3(1.0f, 0.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	columnsMatrix = glm::rotate(columnsMatrix, lightRotation.z += 0.1f, glm::vec3(0.0f, 0.0f, 1.0f));
 	// columnsMatrix = glm::rotate(columnsMatrix, radians(00.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
-	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 200.0f, 0.0f));
-	columnsMatrix = glm::scale(columnsMatrix, glm::vec3(7.0f, 7.0f, 7.0f));
+	columnsMatrix = glm::translate(columnsMatrix, glm::vec3(0.0f, 40.0f, 0.0f));
+	columnsMatrix = glm::scale(columnsMatrix, glm::vec3(2.0f, 2.0f, 2.0f));
 
 	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &columnsMatrix[0][0]);
 
 	light_source.DrawModel(light_source.vaoAndEbos, light_source.model);
+	
 
-	lightPos.x -= 1;
-	lightPos.z -= 1;
+	glm::mat4 lightM = glm::mat4(1.0f);
+
+	lightM = glm::rotate(lightM, modelRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	lightM = glm::rotate(lightM, modelRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	lightM = glm::translate(lightM, glm::vec3(0.0f, 0.0f, 0.0f));
+
+	lightM = glm::rotate(lightM, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+	lightM = glm::rotate(lightM, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	lightM = glm::rotate(lightM, lightRotation.z += 0.1f, glm::vec3(0.0f, 0.0f, 1.0f));
+	// columnsMatrix = glm::rotate(columnsMatrix, radians(00.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	lightM = glm::translate(lightM, glm::vec3(0.0f, 40.0f, 0.0f));
+	// lightM = glm::rotate(lightM, lightRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+	// lightM = glm::rotate(lightM, lightRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+	// lightM = glm::rotate(lightM, lightRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	glm::vec4 rotatedLightPos = lightM * lightPos;
+
+	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "lightPosition"), rotatedLightPos.x, rotatedLightPos.y, rotatedLightPos.z, 1.0);
+
+	
 	
 	#if defined(__APPLE__)
 		glCheckError();
