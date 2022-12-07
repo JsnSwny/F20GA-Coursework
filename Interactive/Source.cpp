@@ -81,10 +81,12 @@ vec3 cameraPosition = vec3(0.0f, 0.0f, 5.0f);		// Where is our camera
 vec3 cameraFront = vec3(0.0f, 0.0f, -1.0f);			// Camera front vector
 vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);				// Camera up vector
 
-vec3 lightPos = vec3(0.0f, 0.0f, 5.0f);		// Where is our camera
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 GLfloat ka = 1.0;
-glm::vec3 ia = glm::vec3(0.5f, 0.5f, 0.5f);
+glm::vec3 ia = glm::vec3(0.2f, 0.24f, 0.2f); // Ambient lighting
+glm::vec3 id = glm::vec3(0.7f, 0.7f, 0.7f); // Diffuse Lighting
+glm::vec3 is = glm::vec3(0.5f, 0.5f, 0.5f); // Specular Lighting
 
 auto aspect = (float)windowWidth / (float)windowHeight;	// Window aspect ration
 auto fovy = 45.0f;									// Field of view (y axis)
@@ -327,15 +329,9 @@ void render()
 {
 	glViewport(0, 0, windowWidth, windowHeight);
 
-	// glUniform4f(glGetUniformLocation(pipeline.pipe.program, "viewPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z, 1.0);
+	
 	// glUniform4f(glGetUniformLocation(pipeline.pipe.program, "lightPosition"), lightPos.x, lightPos.y, lightPos.z, 1.0);
-	// glUniform4f(glGetUniformLocation(pipeline.pipe.program, "ia"), ia.r, ia.g, ia.b, 1.0);
-	// glUniform1f(glGetUniformLocation(pipeline.pipe.program, "ka"), ka);
-	// glUniform4f(glGetUniformLocation(pipeline.pipe.program, "id"), id.r, id.g, id.b, 1.0);
-	// glUniform1f(glGetUniformLocation(pipeline.pipe.program, "kd"), 1.0f);
-	// glUniform4f(glGetUniformLocation(pipeline.pipe.program, "is"), is.r, is.g, is.b, 1.0);
-	// glUniform1f(glGetUniformLocation(pipeline.pipe.program, "ks"), 1.0f);
-	// glUniform1f(glGetUniformLocation(pipeline.pipe.program, "shininess"), 32.0f);
+	
 
 	// Clear colour buffer
 	glm::vec4 inchyraBlue = glm::vec4(0.345f, 0.404f, 0.408f, 1.0f);
@@ -368,6 +364,17 @@ void render()
 	glm::mat4 mv_matrix = viewMatrix * modelMatrix;
 
 	// glUniform4f(glGetUniformLocation(objectModel.program, "lightPosition"), lightDisp.x, lightDisp.y, lightDisp.z, 1.0);
+
+	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "viewPosition"), cameraPosition.x, cameraPosition.y, cameraPosition.z, 1.0);
+	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "lightPosition"), lightPos.x, lightPos.y, lightPos.z, 1.0);
+
+	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "ia"), ia.r, ia.g, ia.b, 1.0);
+	glUniform1f(glGetUniformLocation(pipeline.pipe.program, "ka"), ka);
+	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "id"), id.r, id.g, id.b, 1.0);
+	glUniform1f(glGetUniformLocation(pipeline.pipe.program, "kd"), 1.0f);
+	glUniform4f(glGetUniformLocation(pipeline.pipe.program, "is"), is.r, is.g, is.b, 1.0);
+	glUniform1f(glGetUniformLocation(pipeline.pipe.program, "ks"), 1.0f);
+	glUniform1f(glGetUniformLocation(pipeline.pipe.program, "shininess"), 32.0f);
 
 	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "model_matrix"), 1, GL_FALSE, &modelMatrix[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(pipeline.pipe.program, "view_matrix"), 1, GL_FALSE, &viewMatrix[0][0]);

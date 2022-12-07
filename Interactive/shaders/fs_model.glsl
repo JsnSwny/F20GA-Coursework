@@ -4,46 +4,38 @@ out vec4 color;
 
 in VS_OUT
 {
-    vec3 vertex;
-    vec3 normals;
+    vec4 vertex;
+    vec4 normals;
     vec2 tc;
 } fs_in;
 
 uniform sampler2D tex;
 uniform mat4 model_matrix;
 
+uniform vec4 lightPosition;
+uniform vec4 viewPosition;
+
+uniform vec4 ia;        // Ambient colour
+uniform float ka;        // Ambient constant
+uniform vec4 id;        // Diffuse colour
+uniform float kd;        // Diffuse constant
+uniform vec4 is;        // specular colour
+uniform float ks;        // specular constant
+uniform float shininess;// shininess constant
+
 void main(void){
-  // color = vec4(1.0,1.0,1.0,1.0);
-  // color = vec4(fs_in.normals, 1.0);
 
-  color = texture(tex, fs_in.tc);
+  // Diffuse
+    vec4 lightDir = normalize(lightPosition - fs_in.vertex);
+    float diff = max(dot(normalize(fs_in.normals), lightDir), 0.0);
+    vec4 diffuse = diff * id;
+  
+    // Specular
+    vec4 viewDir = normalize(viewPosition - fs_in.vertex);
+    vec4 reflectDir = reflect(-lightDir, normalize(fs_in.normals));
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 64);
+
+    // Light
+    // color = vec4(ka) * texture(tex, fs_in.tc);
+    color = vec4(ka * ia.rgb + kd * id.rgb * diffuse.rgb + ks * is.rgb * spec, 1.0) * texture(tex, fs_in.tc);
 }
-
-// #version 410 core
-
-// out vec4 color;
-
-// in VS_OUT
-// {
-//     vec3 vertex;
-//     vec3 normals;
-//     vec2 tc;
-//     vec4 fragPos;
-// } fs_in;
-
-// uniform sampler2D tex;
-// uniform mat4 model_matrix;
-
-// uniform vec3 materialColor;
-// uniform vec3 ia;
-// uniform float ka;
-// uniform vec4 lightPosition;
-
-// void main(void){
-//   vec3 normalsT = mat3(transpose(inverse(model_matrix))) * vec3(fs_in.normals.xyz);
-//   vec4 normal = normalize(vec4(normalsT, 1.0));
-//   vec4 lightDir = normalize(lightPosition - fs_in.fragPos);
-//   float diff = max(dot(normal, lightDir), 0.0);
-//   vec4 diffuse = diff * vec4(1.0, 1.0, 1.0, 1.0);
-//   color = vec4( ka * ia , 1.0) + diffuse;
-// }
