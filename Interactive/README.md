@@ -60,5 +60,10 @@ The camera rotation can be adjusted using the arrow keys. And the x and z positi
 
 In case there are issues with the .mp4 files, I have uploaded the interactive videos to YouTube, the links are below.
 
-https://youtu.be/wQKKGMzB2Iw
+The first video (interactive-video.mp4) demonstrates the main interactions. The second video (lighting-interactive-video.mp4) gives a better demonstration of the lighting.
+
+Interactive Video
 https://youtu.be/VsZB7IDoXPI
+
+Lighting Interactive Video
+https://youtu.be/wQKKGMzB2Iw
